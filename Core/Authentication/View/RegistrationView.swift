@@ -38,7 +38,7 @@ struct RegistrationView : View {
       Button {} label: {
         HStack(spacing: 3){
           Text("Already have an account?")
-          Text("Sign Up")
+          Text("Sign In")
         }
         .foregroundColor(.black)
         .footnote()
