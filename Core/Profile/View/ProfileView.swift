@@ -11,6 +11,7 @@ private var filterBarWidth: CGFloat{
 }
 
   var body : some View {
+    NavigationStack{
     ScrollView(showsIndicators: false) {
       VStack(spacing: .21){
         HStack(alignment: .top){
@@ -55,8 +56,15 @@ private var filterBarWidth: CGFloat{
                  }
         }
       }.padding(.vertical, 7)
+      }.toolbar {
+        ToolBarItem(placement: .navigationBarTrailing){
+          AuthService.shared.signOut()
+        } label: {
+          Image(systemName: "line.3.horizontal")
+        }
       }
     }.padding(.horizontal)
+    }
   }
 }
                                                   
