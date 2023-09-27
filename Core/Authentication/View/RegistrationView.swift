@@ -17,12 +17,16 @@ struct RegistrationView : View {
       .frame(wifth: 120, height: 120)
 
     VStack {
-    TextField("Email: ", text: $email).modifier(ThreadsTextFieldModifier())
-    SecureField("Password: ", text: $password).modifier(ThreadsTextFieldModifier())
-    TextField("Full Name: ", text: $fullname).modifier(ThreadsTextFieldModifier())
-    TextField("User Name: ", text: $username).modifier(ThreadsTextFieldModifier())
+    TextField("Email: ", text: $viewModel.email).modifier(ThreadsTextFieldModifier())
+    SecureField("Password: ", text: $viewModel.password).modifier(ThreadsTextFieldModifier())
+    TextField("Full Name: ", text: $viewModel.fullname).modifier(ThreadsTextFieldModifier())
+    TextField("User Name: ", text: $viewModel.username).modifier(ThreadsTextFieldModifier())
     }
-      Button {} label: {
+      Button {
+        Task {
+          try await viewModel.createUser()
+        }
+      } label: {
         Text("Sign Up")
         .font(subheadline)
         .fontWeight(.semibold)
