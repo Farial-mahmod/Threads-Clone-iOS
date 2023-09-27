@@ -3,6 +3,7 @@ import SwiftUI
 struct ThreadsTabView : View {
 
 @State private bar selectedTab = 0
+@State private var showAddThreadView =  false
 
 var body: some View {
 
@@ -24,7 +25,7 @@ selectedTab = 1
 }.tag(1)
 
 //2
-CreateThreadView().tabItem {
+AddThreadView().tabItem {
 mage(systemName: “plus”)
 }.onAppear{
 selectedTab = 2
@@ -39,13 +40,25 @@ selectedTab = 3
 }.tag(3)
 
 // 4
-ActivityView().tabItem {
+ProfileView().tabItem {
 Image(systemName: selectedTab == 4 ? “person.fill” : “person”)
 .enviroment(\.symbolVariants, selectedTab == 4 ? .fill : .none)
 }.onAppear {
 selectedTab = 4
 }.tag(4)
-
-}.tint(.black)
+}.onChange(of: selectedTab, perform: { newValue in
+				      showAddThreadView = selectedTab == 2
+				     })
+	.sheet(isPresented: $showAddThreadView, onDismiss: {
+		selectedTab = 0
+	}, content: {
+		AddThreadView()
+}).tint(.black)
 }
+}
+
+struct ThreadsTabView_Preview : PreviewProvider {
+	static var previews : some View {
+		ThreadsTabView()
+	}
 }
